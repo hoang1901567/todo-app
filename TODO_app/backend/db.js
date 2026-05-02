@@ -6,16 +6,32 @@ dotenv.config();
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false // Rất quan trọng: Bắt buộc phải có dòng này khi dùng Render PostgreSQL
+    rejectUnauthorized: false
   }
 });
 
-// Test kết nối
+// Test connection và tạo table nếu chưa có
+pool.query(`
+  CREATE TABLE IF NOT EXISTS todo (
+    todo_id SERIAL PRIMARY KEY,
+    description VARCHAR(255) NOT NULL,
+    completed BOOLEAN DEFAULT false,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )
+`, (err, result) => {
+  if (err) {
+    console.error('Error creating table:', err);
+  } else {
+    console.log('Table todo created or already exists');
+  }
+});
+
 pool.connect((err, client, release) => {
   if (err) {
-    console.error('Lỗi kết nối PostgreSQL:', err.stack);
+    console.error('Error connecting to PostgreSQL:', err.stack);
   } else {
-    console.log('Đã kết nối thành công với PostgreSQL!');
+    console.log('✅ Connected to PostgreSQL successfully!');
+    release();
   }
 });
 
