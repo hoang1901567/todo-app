@@ -98,7 +98,7 @@ function App() {
     <div className="min-h-screen bg-emerald-950 flex justify-center items-center p-4">
       <div className="bg-emerald-50 rounded-2xl shadow-xl w-full
       max-w-lg p-8">
-        <h1 className="text-4xl font-bold text-emerald-900 mb-8">TODO APP</h1>
+        <h1 className="text-4xl font-bold text-emerald-900 mb-8 text-center">TODO APP</h1>
         {error && (
           <div className="bg-amber-100 text-amber-800 p-3 rounded-lg mb-4">
             {error}
@@ -111,7 +111,7 @@ function App() {
             className="flex-1 outline-none px-3 py-2 text-emerald-900 placeholder-emerald-400"
             type="text"
             value={description} onChange={(e) =>
-              setDescription(e.target.value)} placeholder="What needs to be done?"
+              setDescription(e.target.value)} placeholder="Bạn cần làm gì?"
           />
           <button className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-lg rounded-md font-md cursor-pointer transition-colors">
             Add task
@@ -123,7 +123,7 @@ function App() {
               <p className="text-emerald-600">Loading...</p>
             </div>
           ) : todos.length == 0 ? (
-            <p className="text-emerald-600">No tasks available</p>
+            <div></div>
           ) : (
             <div className="flex flex-col gap-y-4">
               {todos.map((todo) => (
